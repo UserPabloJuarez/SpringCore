@@ -1,0 +1,7 @@
+edu\cibertec\capitulo2\beans\HolaMundo.class
+edu\cibertec\capitulo2\Imprimible.class
+edu\cibertec\capitulo2\service\ImpresoraService.class
+edu\cibertec\capitulo2\Ejecutora.class
+edu\cibertec\capitulo2\beans\DocumentoExcel.class
+edu\cibertec\capitulo2\beans\DocumentoTexto.class
+edu\cibertec\capitulo2\service\AuditoriaAOP.class

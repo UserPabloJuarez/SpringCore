@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop.xsd"
+    default-init-method="iniciar" default-destroy-method="destruir">
+
+    <!--context:annotation-config /-->
+    <context:component-scan base-package="edu.cibertec.capitulo2"/>
+    
+    <!--bean id="holaMundoBean" class="edu.cibertec.capitulo2.beans.HolaMundo"
+        scope="prototype">
+        <property name="saludo" value="Hola Mundo!"></property>
+    </bean-->
+    
+    <bean id="impresoraServiceBean" class="edu.cibertec.capitulo2.service.ImpresoraService">
+        <constructor-arg ref="documentoExcelBean"></constructor-arg>
+        <!--property name="documento" ref="documentoTexto"></property-->
+    </bean>
+    <bean id="documentoExcelBean" class="edu.cibertec.capitulo2.beans.DocumentoExcel"></bean>
+    <bean id="documentoTexto" class="edu.cibertec.capitulo2.beans.DocumentoTexto"
+        lazy-init="true">
+    </bean>
+    
+    <!-- AOP -->
+    <bean id="auditoriaAOP" class="edu.cibertec.capitulo2.service.AuditoriaAOP"/>
+    <aop:config>
+        <aop:aspect id="miAspecto" ref="auditoriaAOP">
+            <aop:pointcut id="miPoint" 
+                          expression="execution(* edu.cibertec.capitulo2.beans.*.*(..))"/>
+            <aop:before pointcut-ref="miPoint" method="antesAdvice" />
+            <aop:after pointcut-ref="miPoint" method="despuesAdvice" />
+            <aop:after-throwing pointcut-ref="miPoint" 
+                                method="despuesExcepcion" />
+        </aop:aspect>
+    </aop:config>
+    
+</beans>
